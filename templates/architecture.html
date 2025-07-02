@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecture Photography - Capture Moments</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Navigation Bar - Consistent with home.html */
+        nav {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: rgba(0, 0, 0, 0.7);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            height: 40px;
+            margin-right: 15px;
+            object-fit: cover;
+            transform: scale(0.8);
+        }
+
+        .nav-logo-text {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 1.1em;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: yellow;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.9);
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            z-index: 1;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .dropdown-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            margin: 0;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: rgba(255, 255, 0, 0.2);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Service Header */
+        .service-header {
+            background: 
+                        url(/static/images/architecture_logo.jpg) no-repeat center center;
+            background-size: cover;
+            color: white;
+            text-align: center;
+            padding: 120px 20px;
+            margin-bottom: 50px;
+        }
+
+        .service-header h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+        }
+
+        .service-header p {
+            font-size: 1.3em;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Service Content */
+        .service-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .service-section {
+            margin-bottom: 60px;
+        }
+
+        .service-section h2 {
+            font-size: 2.2em;
+            margin-bottom: 30px;
+            color: #222;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .service-section h2::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 80px;
+            height: 3px;
+            background-color: #ffcc00;
+        }
+
+        .service-description {
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Pricing Section */
+        .pricing-table {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .pricing-card {
+            flex: 1;
+            min-width: 250px;
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .pricing-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #222;
+        }
+
+        .price {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #ffcc00;
+            margin-bottom: 20px;
+        }
+
+        .price span {
+            font-size: 0.6em;
+            color: #777;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .pricing-features li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .pricing-features li::before {
+            content: "\f00c";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: #ffcc00;
+        }
+
+        .book-button {
+            display: inline-block;
+            background-color: #ffcc00;
+            color: #222;
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .book-button:hover {
+            background-color: #e6b800;
+        }
+
+        /* Testimonials */
+        .architecture-testimonials {
+            background-color: #f5f5f5;
+            padding: 60px 20px;
+            margin-top: 60px;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .testimonial-text::before {
+            content: '"';
+            font-size: 3em;
+            color: #ffcc00;
+            position: absolute;
+            left: -15px;
+            top: -15px;
+            opacity: 0.3;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+
+        .author-info h4 {
+            margin-bottom: 5px;
+        }
+
+        .author-info p {
+            color: #777;
+            font-size: 0.9em;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: url('/static/images/architecture-cta.jpg') no-repeat center center;
+            background-size: cover;
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+            margin-top: 60px;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            font-size: 1.1em;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #222;
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            padding: 0 20px;
+        }
+
+        .footer-column {
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #ffcc00;
+        }
+
+        .footer-column p {
+            margin-bottom: 15px;
+            color: #bbb;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: #333;
+            color: white;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: #ffcc00;
+            color: #222;
+            transform: translateY(-3px);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #ffcc00;
+        }
+
+        .footer-column i {
+            margin-right: 10px;
+            color: #ffcc00;
+            width: 20px;
+            text-align: center;
+        }
+
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .newsletter-form input {
+            padding: 12px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #333;
+            color: white;
+        }
+
+        .newsletter-form button {
+            padding: 12px;
+            background-color: #ffcc00;
+            color: #222;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            background-color: #e6b800;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid #444;
+            color: #bbb;
+            font-size: 0.9em;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                padding: 15px;
+            }
+
+            .logo-container {
+                margin-bottom: 15px;
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: space-around;
+                flex-wrap: wrap;
+            }
+
+            .nav-links a {
+                margin: 5px 10px;
+            }
+
+            .service-header h1 {
+                font-size: 2.5em;
+            }
+
+            .service-header p {
+                font-size: 1.1em;
+            }
+
+            .pricing-table {
+                flex-direction: column;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar (same as home.html) -->
+    
+    <!-- Service Header -->
+    <div class="service-header">
+        <h1>Architecture Photography</h1>
+        <p>Capturing the essence of buildings and structures with precision and artistic vision</p>
+    </div>
+
+    <!-- Service Content -->
+    <div class="service-container">
+        <section class="service-section">
+            <h2>Our Architecture Photography Services</h2>
+            <p class="service-description">
+                Our architecture photography service specializes in showcasing buildings, structures, and urban landscapes 
+                with a perfect blend of technical precision and artistic vision. Whether you're an architect, real estate 
+                developer, or property owner, we'll capture your space in the best possible light, highlighting its unique 
+                features and design elements.
+            </p>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="/static/images/architecture1.jpg" alt="Modern Building">
+                </div>
+                <div class="gallery-item">
+                    <img src="/static/images/architecture2.jpg" alt="Interior Design">
+                </div>
+                <div class="gallery-item">
+                    <img src="/static/images/architecture3.jpg" alt="Urban Landscape">
+                </div>
+                <div class="gallery-item">
+                    <img src="/static/images/architecture4.jpg" alt="Historical Building">
+                </div>
+                <div class="gallery-item">
+                    <img src="/static/images/architecture5.jpg" alt="Commercial Space">
+                </div>
+                <div class="gallery-item">
+                    <img src="/static/images/architecture6.jpg" alt="Architectural Detail">
+                </div>
+            </div>
+        </section>
+
+        <section class="service-section">
+            <h2>Pricing Packages</h2>
+            <p class="service-description">
+                We offer flexible architecture photography packages to suit different project requirements. 
+                All packages include high-resolution edited images suitable for print and digital use.
+            </p>
+            
+            <div class="pricing-table">
+                <div class="pricing-card">
+                    <h3>Basic</h3>
+                    <div class="price">$500 <span>/ project</span></div>
+                    <ul class="pricing-features">
+                        <li>2 hours on location</li>
+                        <li>Exterior shots only</li>
+                        <li>20+ edited photos</li>
+                        <li>Basic retouching</li>
+                        <li>Digital delivery</li>
+                    </ul>
+                    <a href="/book?service=architecture&package=basic" class="book-button">Book Now</a>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3>Standard</h3>
+                    <div class="price">$900 <span>/ project</span></div>
+                    <ul class="pricing-features">
+                        <li>4 hours on location</li>
+                        <li>Exterior & interior shots</li>
+                        <li>40+ edited photos</li>
+                        <li>Advanced retouching</li>
+                        <li>Digital delivery</li>
+                        <li>Virtual tour option</li>
+                    </ul>
+                    <a href="/book?service=architecture&package=standard" class="book-button">Book Now</a>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3>Premium</h3>
+                    <div class="price">$1,500 <span>/ project</span></div>
+                    <ul class="pricing-features">
+                        <li>Full day coverage</li>
+                        <li>Exterior, interior & details</li>
+                        <li>80+ edited photos</li>
+                        <li>Professional retouching</li>
+                        <li>Digital + print-ready files</li>
+                        <li>Virtual tour included</li>
+                        <li>Drone photography</li>
+                    </ul>
+                    <a href="/book?service=architecture&package=premium" class="book-button">Book Now</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="service-section">
+            <h2>Our Approach</h2>
+            <p class="service-description">
+                We combine technical expertise with creative vision to showcase architectural spaces in their best light. 
+                Our approach includes:
+            </p>
+            
+            <div class="approach-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px; margin-top: 30px;">
+                <div class="approach-item" style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                    <h3 style="color: #ffcc00; margin-bottom: 15px; font-size: 1.3em;"><i class="fas fa-building" style="margin-right: 10px;"></i> Technical Precision</h3>
+                    <p>Perfectly straight lines, accurate perspective correction, and proper exposure</p>
+                </div>
+                <div class="approach-item" style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                    <h3 style="color: #ffcc00; margin-bottom: 15px; font-size: 1.3em;"><i class="fas fa-lightbulb" style="margin-right: 10px;"></i> Lighting Mastery</h3>
+                    <p>Optimal use of natural and artificial light to showcase spaces</p>
+                </div>
+                <div class="approach-item" style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                    <h3 style="color: #ffcc00; margin-bottom: 15px; font-size: 1.3em;"><i class="fas fa-eye" style="margin-right: 10px;"></i> Composition</h3>
+                    <p>Thoughtful framing to highlight architectural features and flow</p>
+                </div>
+                <div class="approach-item" style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                    <h3 style="color: #ffcc00; margin-bottom: 15px; font-size: 1.3em;"><i class="fas fa-drone-alt" style="margin-right: 10px;"></i> Aerial Perspectives</h3>
+                    <p>Drone photography for unique angles and site context</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Testimonials -->
+    <section class="architecture-testimonials">
+        <div class="service-container">
+            <h2 style="text-align: center; margin-bottom: 50px; font-size: 2.2em;">What Our Clients Say</h2>
+            
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "The photos of our new office building perfectly captured the architectural details and design intent. The images have been invaluable for our marketing materials."
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Robert Johnson">
+                        <div class="author-info">
+                            <h4>Robert Johnson</h4>
+                            <p>Architect, Design Studio</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "We've used these architectural photos across all our marketing channels, and the response has been phenomenal. The quality is exceptional."
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Chen">
+                        <div class="author-info">
+                            <h4>Sarah Chen</h4>
+                            <p>Real Estate Developer</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "The photographer understood exactly how to showcase our historic renovation project, respecting the original features while highlighting our modern interventions."
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Michael Rodriguez">
+                        <div class="author-info">
+                            <h4>Michael Rodriguez</h4>
+                            <p>Property Owner</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>Ready to Showcase Your Architectural Project?</h2>
+        <p>Contact us today to discuss your architecture photography needs and schedule your session.</p>
+        <a href="/contact" class="book-button" style="background: white; color: #222;">Contact Us</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>About Us</h3>
+                <p>Capture Moments connects you with professional photographers for all occasions. Our mission is to preserve your precious memories with stunning photography.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about">About Us</a></li>
+                    <li><a href="/services">Services</a></li>
+                    <li><a href="/photographers">Photographers</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                    <li><a href="/privacy">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact Info</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Photography St, Image City</p>
+                <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                <p><i class="fas fa-envelope"></i> info@capturemoments.com</p>
+                <p><i class="fas fa-clock"></i> Mon-Fri: 9AM - 6PM</p>
+            </div>
+            <div class="footer-column">
+                <h3>Newsletter</h3>
+                <p>Subscribe to our newsletter for photography tips, special offers, and updates.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your Email Address" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Capture Moments. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple logout functionality
+        document.getElementById('logoutBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            localStorage.removeItem('authToken');
+            alert('You have been logged out. Redirecting to home page...');
+            window.location.href = '/';
+        });
+
+        // Simple form submission handler for newsletter
+        document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input').value;
+            alert(`Thank you for subscribing with ${email}! You'll hear from us soon.`);
+            this.querySelector('input').value = '';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aerial Photography - Capture Moments</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Navigation Bar - Consistent with other pages */
+        nav {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: rgba(0, 0, 0, 0.7);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* (Keep all the existing CSS styles from previous pages) */
+        /* ... All the common styles from previous pages ... */
+
+        /* Service Header */
+        .service-header {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('/static/images/aerial_logo.jpg') no-repeat center center;
+            background-size: cover;
+            color: white;
+            text-align: center;
+            padding: 120px 20px;
+            margin-bottom: 50px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), 
+                        url('/static/images/aerial-cta.jpg') no-repeat center center;
+            background-size: cover;
+        }
+
+        /* Add any additional custom styles for aerial page here */
+        .drone-icon {
+            color: #ffcc00;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="logo-container">
+            <img src="/static/images/logo.png" alt="Capture Moments Logo" class="logo">
+            <a href="/" class="nav-logo-text">Capture Moments</a>
+        </div>
+        
+        <div class="nav-links">
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            
+            <div class="dropdown">
+                <a href="#"><i class="fas fa-user-circle"></i> My Profile</a>
+                <div class="dropdown-content">
+                    <a href="/my-bookings"><i class="fas fa-calendar-check"></i> My Bookings</a>
+                    <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Service Header -->
+    <div class="service-header">
+        <h1>Aerial Photography</h1>
+        <p>Capturing stunning perspectives from above with professional drone photography and videography</p>
+    </div>
+
+    <!-- Service Content -->
+    <div class="service-container">
+        <section class="service-section">
+            <h2>Our Aerial Photography Services</h2>
+            <p class="service-description">
+                Our aerial photography service provides breathtaking elevated perspectives using state-of-the-art drones 
+                equipped with high-resolution cameras. Whether you need stunning landscape shots, property documentation, 
+                event coverage, or commercial imagery, we deliver professional aerial content with precision and creative vision.
+            </p>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="/static/images/aerial-gallery1.jpg" alt="Coastal Aerial View">
+                </div>
+                <div class="gallery-item">
+                    <img src="/static/images/aerial-gallery2.jpg" alt="Urban Skyline">
+                </div>
+                <div class="gallery-item">
+                    <img src="/static/images/aerial-gallery3.jpg" alt="Countryside Landscape">
+                </div>
+                <div class="gallery-item">
+                    <img src="/static/images/aerial-gallery4.jpg" alt="Real Estate Property">
+                </div>
+                <div class="gallery-item">
+                    <img src="/static/images/aerial-gallery5.jpg" alt="Event Coverage">
+                </div>
+                <div class="gallery-item">
+                    <img src="/static/images/aerial-gallery6.jpg" alt="Industrial Site">
+                </div>
+            </div>
+        </section>
+
+        <section class="service-section">
+            <h2>Pricing Packages</h2>
+            <p class="service-description">
+                We offer flexible aerial photography packages to suit various needs. All our drone operators are fully licensed 
+                and insured, and all packages include professionally edited high-resolution images.
+            </p>
+            
+            <div class="pricing-table">
+                <div class="pricing-card">
+                    <h3><i class="fas fa-drone drone-icon"></i> Basic Aerial</h3>
+                    <div class="price">$350 <span>/ session</span></div>
+                    <ul class="pricing-features">
+                        <li>1 hour of flight time</li>
+                        <li>30+ edited high-res images</li>
+                        <li>1080p video clips (up to 2 mins)</li>
+                        <li>Single location</li>
+                        <li>Basic color correction</li>
+                        <li>Digital delivery</li>
+                    </ul>
+                    <a href="book.html?package=basic-aerial" class="book-button">Book Now</a>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3><i class="fas fa-drone-alt drone-icon"></i> Premium Aerial</h3>
+                    <div class="price">$650 <span>/ session</span></div>
+                    <ul class="pricing-features">
+                        <li>2 hours of flight time</li>
+                        <li>60+ edited high-res images</li>
+                        <li>4K video footage (up to 5 mins)</li>
+                        <li>Up to 3 nearby locations</li>
+                        <li>Advanced editing</li>
+                        <li>Panoramic stitches</li>
+                        <li>Digital delivery</li>
+                    </ul>
+                    <a href="book.html?package=premium-aerial" class="book-button">Book Now</a>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3><i class="fas fa-video drone-icon"></i> Cinematic Aerial</h3>
+                    <div class="price">$1,200 <span>/ day</span></div>
+                    <ul class="pricing-features">
+                        <li>Full day coverage</li>
+                        <li>100+ edited high-res images</li>
+                        <li>4K cinematic video (5-10 mins)</li>
+                        <li>Multiple locations</li>
+                        <li>Professional color grading</li>
+                        <li>Drone + ground footage</li>
+                        <li>Custom deliverables</li>
+                    </ul>
+                    <a href="book.html?package=cinematic-aerial" class="book-button">Book Now</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="service-section">
+            <h2>Our Capabilities</h2>
+            <p class="service-description">
+                We utilize professional-grade drones with advanced camera systems to deliver exceptional aerial imagery 
+                for various applications:
+            </p>
+            
+            <div class="approach-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px; margin-top: 30px;">
+                <div class="approach-item" style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                    <h3 style="color: #ffcc00; margin-bottom: 15px; font-size: 1.3em;"><i class="fas fa-home" style="margin-right: 10px;"></i> Real Estate</h3>
+                    <p>Stunning property overviews, neighborhood context, and unique angles to showcase listings</p>
+                </div>
+                <div class="approach-item" style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                    <h3 style="color: #ffcc00; margin-bottom: 15px; font-size: 1.3em;"><i class="fas fa-torii-gate" style="margin-right: 10px;"></i> Construction</h3>
+                    <p>Progress documentation, site surveys, and marketing materials for development projects</p>
+                </div>
+                <div class="approach-item" style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                    <h3 style="color: #ffcc00; margin-bottom: 15px; font-size: 1.3em;"><i class="fas fa-ring" style="margin-right: 10px;"></i> Events</h3>
+                    <p>Unique perspectives of weddings, festivals, and corporate gatherings from above</p>
+                </div>
+                <div class="approach-item" style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                    <h3 style="color: #ffcc00; margin-bottom: 15px; font-size: 1.3em;"><i class="fas fa-mountain" style="margin-right: 10px;"></i> Landscape</h3>
+                    <p>Breathtaking natural scenery and geographic features captured from unique vantage points</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="service-section">
+            <h2>Our Technology</h2>
+            <p class="service-description">
+                We invest in the latest drone technology to ensure the highest quality aerial imagery:
+            </p>
+            
+            <div class="tech-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 30px; margin-top: 30px; text-align: center;">
+                <div class="tech-item">
+                    <i class="fas fa-camera" style="font-size: 2.5em; color: #ffcc00; margin-bottom: 15px;"></i>
+                    <h3 style="margin-bottom: 10px;">20MP Cameras</h3>
+                    <p>High-resolution sensors for crisp, detailed images</p>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-video" style="font-size: 2.5em; color: #ffcc00; margin-bottom: 15px;"></i>
+                    <h3 style="margin-bottom: 10px;">4K Video</h3>
+                    <p>Cinematic quality video at 60fps</p>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-compass" style="font-size: 2.5em; color: #ffcc00; margin-bottom: 15px;"></i>
+                    <h3 style="margin-bottom: 10px;">GPS Stabilization</h3>
+                    <p>Rock-steady footage even in windy conditions</p>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-eye" style="font-size: 2.5em; color: #ffcc00; margin-bottom: 15px;"></i>
+                    <h3 style="margin-bottom: 10px;">Obstacle Avoidance</h3>
+                    <p>Advanced safety systems for secure operations</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Testimonials -->
+    <section class="aerial-testimonials" style="background-color: #f5f5f5; padding: 60px 20px; margin-top: 60px;">
+        <div class="service-container">
+            <h2 style="text-align: center; margin-bottom: 50px; font-size: 2.2em;">What Our Clients Say</h2>
+            
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "The aerial shots of our new development completely transformed our marketing materials. The perspective from above showed the property in context with its beautiful surroundings in a way ground photos never could."
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="David Thompson">
+                        <div class="author-info">
+                            <h4>David Thompson</h4>
+                            <p>Real Estate Developer</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "Our wedding aerial photos were absolutely magical! The drone footage captured our entire venue and all our guests in ways we didn't think possible. It's like seeing our special day from a whole new perspective."
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="Jessica & Mark">
+                        <div class="author-info">
+                            <h4>Jessica & Mark</h4>
+                            <p>Wedding Clients</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "As a construction project manager, the weekly aerial progress shots have been invaluable for documentation and client updates. The clarity and angles provide perfect overviews of our site."
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/60.jpg" alt="Robert Chen">
+                        <div class="author-info">
+                            <h4>Robert Chen</h4>
+                            <p>Construction Manager</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>Ready to See Your World From Above?</h2>
+        <p>Contact us today to discuss your aerial photography needs and schedule your session.</p>
+        <a href="contact.html" class="book-button" style="background: white; color: #222;">Contact Us</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>About Us</h3>
+                <p>Capture Moments connects you with professional photographers for all occasions. Our mission is to preserve your precious memories with stunning photography.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about">About Us</a></li>
+                    <li><a href="/services">Services</a></li>
+                    <li><a href="/photographers">Photographers</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                    <li><a href="/privacy">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact Info</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Photography St, Image City</p>
+                <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                <p><i class="fas fa-envelope"></i> info@capturemoments.com</p>
+                <p><i class="fas fa-clock"></i> Mon-Fri: 9AM - 6PM</p>
+            </div>
+            <div class="footer-column">
+                <h3>Newsletter</h3>
+                <p>Subscribe to our newsletter for photography tips, special offers, and updates.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your Email Address" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Capture Moments. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple logout functionality
+        document.getElementById('logoutBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            localStorage.removeItem('authToken');
+            alert('You have been logged out. Redirecting to home page...');
+            window.location.href = '/';
+        });
+
+        // Simple form submission handler for newsletter
+        document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input').value;
+            alert(`Thank you for subscribing with ${email}! You'll hear from us soon.`);
+            this.querySelector('input').value = '';
+        });
+    </script>
+</body>
+</html>

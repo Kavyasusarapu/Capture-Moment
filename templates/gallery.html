@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Photography Gallery</title>
+  <style>
+    .gallery { display: flex; flex-wrap: wrap; gap: 15px; }
+    .gallery img { width: 300px; height: auto; border-radius: 10px; }
+    .buttons { margin-bottom: 20px; }
+    .buttons button { margin-right: 10px; padding: 10px; cursor: pointer; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+
+  <div class="buttons">
+    <button onclick="filterGallery('all')">All</button>
+    <button onclick="filterGallery('wedding')">Wedding</button>
+    <button onclick="filterGallery('prewedding')">Pre-wedding</button>
+    <button onclick="filterGallery('events')">Events</button>
+  </div>
+
+  <div class="gallery">
+    <!-- Wedding -->
+    <img src="{{ url_for('static', filename='images/wedding/img1.jpg') }}" class="image wedding">
+    <img src="{{ url_for('static', filename='images/wedding/img2.jpg') }}" class="image wedding">
+
+    <!-- Pre-wedding -->
+    <img src="{{ url_for('static', filename='images/prewedding/img1.jpg') }}" class="image prewedding">
+    <img src="{{ url_for('static', filename='images/prewedding/img2.jpg') }}" class="image prewedding">
+
+    <!-- Events -->
+    <img src="{{ url_for('static', filename='images/events/img1.jpg') }}" class="image events">
+    <img src="{{ url_for('static', filename='images/events/img2.jpg') }}" class="image events">
+  </div>
+
+  <script>
+    function filterGallery(category) {
+      let images = document.querySelectorAll('.gallery .image');
+      images.forEach(img => {
+        if (category === 'all' || img.classList.contains(category)) {
+          img.style.display = 'block';
+        } else {
+          img.style.display = 'none';
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>

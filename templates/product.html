@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Photography - Capture Moments</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Navigation Bar - Consistent with home.html */
+        nav {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: rgba(5, 1, 1, 0.94);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.96);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            height: 40px;
+            margin-right: 15px;
+            object-fit: cover;
+            transform: scale(0.8);
+        }
+
+        .nav-logo-text {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 1.1em;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: yellow;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.9);
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            z-index: 1;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .dropdown-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            margin: 0;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: rgba(255, 255, 0, 0.2);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Service Header */
+        .service-header {
+            background: url('/static/images/product_logo.jpg') no-repeat center center;
+            background-size: cover;
+            color: white;
+            text-align: center;
+            padding: 120px 20px;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .service-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .service-header h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .service-header p {
+            font-size: 1.3em;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* Service Content */
+        .service-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .service-section {
+            margin-bottom: 60px;
+        }
+
+        .service-section h2 {
+            font-size: 2.2em;
+            margin-bottom: 30px;
+            color: #222;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .service-section h2::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 80px;
+            height: 3px;
+            background-color: #ffcc00;
+        }
+
+        .service-description {
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Pricing Section */
+        .pricing-table {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .pricing-card {
+            flex: 1;
+            min-width: 250px;
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .pricing-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #222;
+        }
+
+        .price {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #ffcc00;
+            margin-bottom: 20px;
+        }
+
+        .price span {
+            font-size: 0.6em;
+            color: #777;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .pricing-features li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .pricing-features li::before {
+            content: "\f00c";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: #ffcc00;
+        }
+
+        .book-button {
+            display: inline-block;
+            background-color: #ffcc00;
+            color: #222;
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .book-button:hover {
+            background-color: #e6b800;
+        }
+
+        /* Testimonials */
+        .product-testimonials {
+            background-color: #f5f5f5;
+            padding: 60px 20px;
+            margin-top: 60px;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .testimonial-text::before {
+            content: '"';
+            font-size: 3em;
+            color: #ffcc00;
+            position: absolute;
+            left: -15px;
+            top: -15px;
+            opacity: 0.3;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+
+        .author-info h4 {
+            margin-bottom: 5px;
+        }
+
+        .author-info p {
+            color: #777;
+            font-size: 0.9em;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: url('/static/images/product-cta.jpg') no-repeat center center;
+            background-size: cover;
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+            margin-top: 60px;
+            position: relative;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        .cta-section h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .cta-section p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            font-size: 1.1em;
+            position: relative;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #222;
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            padding: 0 20px;
+        }
+
+        .footer-column {
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #ffcc00;
+        }
+
+        .footer-column p {
+            margin-bottom: 15px;
+            color: #bbb;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: #333;
+            color: white;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: #ffcc00;
+            color: #222;
+            transform: translateY(-3px);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #ffcc00;
+        }
+
+        .footer-column i {
+            margin-right: 10px;
+            color: #ffcc00;
+            width: 20px;
+            text-align: center;
+        }
+
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .newsletter-form input {
+            padding: 12px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #333;
+            color: white;
+        }
+
+        .newsletter-form button {
+            padding: 12px;
+            background-color: #ffcc00;
+            color: #222;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            background-color: #e6b800;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid #444;
+            color: #bbb;
+            font-size: 0.9em;
+        }
+
+        /* Approach Grid */
+        .approach-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .approach-item {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .approach-item h3 {
+            color: #ffcc00;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                padding: 15px;
+            }
+
+            .logo-container {
+                margin-bottom: 15px;
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: space-around;
+                flex-wrap: wrap;
+            }
+
+            .nav-links a {
+                margin: 5px 10px;
+            }
+
+            .service-header h1 {
+                font-size: 2.5em;
+            }
+
+            .service-header p {
+                font-size: 1.1em;
+            }
+
+            .pricing-table {
+                flex-direction: column;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="logo-container">
+            <img src="/static/images/logo.png" alt="Capture Moments Logo" class="logo">
+            <a href="/" class="nav-logo-text">Capture Moments</a>
+        </div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <div class="dropdown">
+                <a href="/services">Services <i class="fas fa-chevron-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="/services/wedding">Wedding Photography</a>
+                    <a href="/services/portrait">Portrait Photography</a>
+                    <a href="/services/product">Product Photography</a>
+                    <a href="/services/sports">Sports Photography</a>
+                    <a href="/services/event">Event Photography</a>
+                </div>
+            </div>
+            <a href="/portfolio">Portfolio</a>
+            <a href="/contact">Contact</a>
+            <a href="/login" id="loginBtn">Login</a>
+            <a href="/logout" id="logoutBtn" style="display: none;">Logout</a>
+        </div>
+    </nav>
+
+    <!-- Service Header -->
+    <div class="service-header">
+        <h1>Product Photography</h1>
+        <p>Showcase your products with professional, high-quality images that drive sales and engagement</p>
+    </div>
+
+    <!-- Service Content -->
+    <div class="service-container">
+        <section class="service-section">
+            <h2>Our Product Photography Services</h2>
+            <p class="service-description">
+                Our product photography service is designed to make your products look their absolute best. Whether you're an e-commerce business, 
+                a manufacturer, or a creative professional, we'll create stunning images that highlight your product's features, quality, and value. 
+                Our studio is equipped with professional lighting, backdrops, and editing tools to ensure your products stand out from the competition.
+            </p>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="/static/images/product1.jpg" alt="E-commerce Product">
+                </div>
+                <div class="gallery-item">
+                    <img src="/static/images/product2.jpg" alt="Jewelry Photography">
+                </div>
+                <div class="gallery-item">
+                    <img src="/static/images/product3.jpg" alt="Food Product">
+                </div>
+                <div class="gallery-item">
+                    <img src="/static/images/product4.jpg" alt="White Background">
+                </div>
+                <div class="gallery-item">
+                    <img src="/static/images/product5.jpg" alt="Lifestyle Shot">
+                </div>
+                <div class="gallery-item">
+                    <img src="/static/images/product6.jpg" alt="Detail Shot">
+                </div>
+            </div>
+        </section>
+
+        <section class="service-section">
+            <h2>Pricing Packages</h2>
+            <p class="service-description">
+                We offer flexible product photography packages to suit businesses of all sizes. All packages include professional editing 
+                and high-resolution images optimized for your specific needs.
+            </p>
+            
+            <div class="pricing-table">
+                <div class="pricing-card">
+                    <h3>Starter</h3>
+                    <div class="price">$150 <span>/ product</span></div>
+                    <ul class="pricing-features">
+                        <li>1-5 products</li>
+                        <li>White background shots</li>
+                        <li>3 angles per product</li>
+                        <li>Basic editing</li>
+                        <li>24-hour turnaround</li>
+                    </ul>
+                    <a href="/book?service=product&package=starter" class="book-button">Book Now</a>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3>Professional</h3>
+                    <div class="price">$400 <span>/ 5 products</span></div>
+                    <ul class="pricing-features">
+                        <li>5-10 products</li>
+                        <li>White & lifestyle backgrounds</li>
+                        <li>5 angles per product</li>
+                        <li>Advanced editing</li>
+                        <li>Detail shots included</li>
+                        <li>48-hour turnaround</li>
+                    </ul>
+                    <a href="/book?service=product&package=professional" class="book-button">Book Now</a>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3>Enterprise</h3>
+                    <div class="price">$800 <span>/ 15 products</span></div>
+                    <ul class="pricing-features">
+                        <li>15+ products</li>
+                        <li>Multiple background options</li>
+                        <li>7+ angles per product</li>
+                        <li>Premium editing</li>
+                        <li>Lifestyle context shots</li>
+                        <li>360° views available</li>
+                        <li>Priority turnaround</li>
+                    </ul>
+                    <a href="/book?service=product&package=enterprise" class="book-button">Book Now</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="service-section">
+            <h2>Our Approach</h2>
+            <p class="service-description">
+                We combine technical expertise with creative vision to create product images that sell. Our approach includes:
+            </p>
+            
+            <div class="approach-grid">
+                <div class="approach-item">
+                    <h3><i class="fas fa-lightbulb" style="margin-right: 10px;"></i> Lighting Mastery</h3>
+                    <p>Perfect lighting setup to highlight product features and textures</p>
+                </div>
+                <div class="approach-item">
+                    <h3><i class="fas fa-crop-alt" style="margin-right: 10px;"></i> Composition</h3>
+                    <p>Strategic framing and angles to showcase your product effectively</p>
+                </div>
+                <div class="approach-item">
+                    <h3><i class="fas fa-palette" style="margin-right: 10px;"></i> Color Accuracy</h3>
+                    <p>Precise color matching to ensure your products look true to life</p>
+                </div>
+                <div class="approach-item">
+                    <h3><i class="fas fa-magic" style="margin-right: 10px;"></i> Post-Production</h3>
+                    <p>Professional editing to remove imperfections and enhance appeal</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Testimonials -->
+    <section class="product-testimonials">
+        <div class="service-container">
+            <h2 style="text-align: center; margin-bottom: 50px; font-size: 2.2em;">What Our Clients Say</h2>
+            
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "The product photos increased our conversion rate by 30%! The lighting and composition made our jewelry look absolutely stunning. Worth every penny."
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/42.jpg" alt="Emily Rodriguez">
+                        <div class="author-info">
+                            <h4>Emily Rodriguez</h4>
+                            <p>Owner, Luxe Jewelry Co.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "As an e-commerce manager, I've worked with many photographers. These images are consistently the best - they make our products look premium and desirable."
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/65.jpg" alt="David Kim">
+                        <div class="author-info">
+                            <h4>David Kim</h4>
+                            <p>E-commerce Director</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "The attention to detail in our food product photography was incredible. They captured the texture and freshness perfectly, making our products look irresistible."
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Sarah Johnson">
+                        <div class="author-info">
+                            <h4>Sarah Johnson</h4>
+                            <p>Marketing Manager, FreshBites</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>Ready to Elevate Your Product Images?</h2>
+        <p>Contact us today to discuss your product photography needs and schedule your session.</p>
+        <a href="/contact" class="book-button" style="background: white; color: #222;">Contact Us</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>About Us</h3>
+                <p>Capture Moments connects you with professional photographers for all occasions. Our mission is to preserve your precious memories with stunning photography.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about">About Us</a></li>
+                    <li><a href="/services">Services</a></li>
+                    <li><a href="/photographers">Photographers</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                    <li><a href="/privacy">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact Info</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Photography St, Image City</p>
+                <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                <p><i class="fas fa-envelope"></i> info@capturemoments.com</p>
+                <p><i class="fas fa-clock"></i> Mon-Fri: 9AM - 6PM</p>
+            </div>
+            <div class="footer-column">
+                <h3>Newsletter</h3>
+                <p>Subscribe to our newsletter for photography tips, special offers, and updates.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your Email Address" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Capture Moments. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple logout functionality
+        document.getElementById('logoutBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            localStorage.removeItem('authToken');
+            alert('You have been logged out. Redirecting to home page...');
+            window.location.href = '/';
+        });
+
+        // Simple form submission handler for newsletter
+        document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input').value;
+            alert(`Thank you for subscribing with ${email}! You'll hear from us soon.`);
+            this.querySelector('input').value = '';
+        });
+
+        // Check if user is logged in
+        if (localStorage.getItem('authToken')) {
+            document.getElementById('loginBtn').style.display = 'none';
+            document.getElementById('logoutBtn').style.display = 'inline-block';
+        }
+    </script>
+</body>
+</html>

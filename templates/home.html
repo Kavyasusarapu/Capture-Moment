@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capture Moments</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: url("/static/images/background.jpg") no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            text-align: center;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Overlay */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 0;
+        }
+
+        /* Navigation Bar - Consistent across all pages */
+        nav {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: rgba(0, 0, 0, 0.7);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            height: 40px;
+            margin-right: 15px;
+        }
+
+        .nav-logo-text {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 1.1em;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: yellow;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.9);
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            z-index: 1;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .dropdown-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            margin: 0;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: rgba(255, 255, 0, 0.2);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            padding: 100px 20px 50px;
+            min-height: calc(100vh - 300px);
+        }
+
+        h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.3em;
+            margin-bottom: 40px;
+        }
+
+        a.button {
+            background: white;
+            color: black;
+            padding: 15px 30px;
+            margin: 10px;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 700;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        a.button:hover {
+            background-color: yellow;
+            color: black;
+        }
+
+        .styles-section {
+            margin-top: 60px;
+            padding: 20px;
+        }
+
+        .styles-section h2 {
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            text-decoration: underline;
+        }
+
+        .style-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .style-card {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 20px;
+            width: 240px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .style-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .style-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .style-card img:hover {
+            transform: scale(1.05);
+        }
+
+        .style-card h3 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        /* New Testimonials Design */
+        .testimonials-section {
+            margin: 80px auto;
+            max-width: 1200px;
+            padding: 0 20px;
+        }
+
+        .testimonials-section h2 {
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            text-decoration: underline;
+        }
+
+        .testimonial-slider {
+            position: relative;
+            overflow: hidden;
+            height: 400px;
+        }
+
+        .testimonial-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+        }
+
+        .testimonial-slide.active {
+            opacity: 1;
+        }
+
+        .testimonial-quote {
+            font-size: 1.5em;
+            font-style: italic;
+            margin-bottom: 30px;
+            max-width: 800px;
+            position: relative;
+        }
+
+        .testimonial-quote::before,
+        .testimonial-quote::after {
+            content: '"';
+            font-size: 2em;
+            color: yellow;
+            opacity: 0.5;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .author-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 20px;
+            border: 3px solid yellow;
+        }
+
+        .author-info h4 {
+            font-size: 1.3em;
+            margin-bottom: 5px;
+        }
+
+        .author-info p {
+            margin: 0;
+            font-size: 1em;
+            color: #ccc;
+        }
+
+        .testimonial-dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            margin: 0 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .dot.active {
+            background-color: yellow;
+        }
+
+        /* Footer */
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 60px 0 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            gap: 30px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: yellow;
+        }
+
+        .footer-column p {
+            margin-bottom: 15px;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.95em;
+        }
+
+        .footer-links a:hover {
+            color: yellow;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: yellow;
+            color: black;
+        }
+
+        .newsletter-form {
+            margin-top: 20px;
+        }
+
+        .newsletter-form input {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .newsletter-form input::placeholder {
+            color: #ccc;
+        }
+
+        .newsletter-form button {
+            background-color: yellow;
+            color: black;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            background-color: #ffeb3b;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9em;
+            color: #aaa;
+        }
+
+        /* Login Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-content {
+            background-color: rgba(0, 0, 0, 0.9);
+            margin: 10% auto;
+            padding: 30px;
+            border: 1px solid #444;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: white;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #444;
+            border-radius: 5px;
+            background-color: #222;
+            color: white;
+            font-size: 16px;
+        }
+
+        .form-submit {
+            background-color: white;
+            color: black;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        .form-submit:hover {
+            background-color: yellow;
+        }
+
+        .form-footer {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .form-footer a {
+            color: yellow;
+            text-decoration: none;
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                padding: 15px;
+            }
+
+            .logo-container {
+                margin-bottom: 15px;
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: space-around;
+                flex-wrap: wrap;
+            }
+
+            .nav-links a {
+                margin: 5px 10px;
+            }
+
+            h1 {
+                font-size: 2.5em;
+            }
+
+            .style-card {
+                width: 90%;
+            }
+
+            .style-grid {
+                gap: 20px;
+            }
+
+            .testimonial-slide {
+                padding: 20px;
+            }
+
+            .testimonial-quote {
+                font-size: 1.2em;
+            }
+
+            .author-image {
+                width: 60px;
+                height: 60px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .footer-column h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .modal-content {
+                margin: 20% auto;
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Login to Continue</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="form-submit">Login</button>
+                <div class="form-footer">
+                    Don't have an account? <a href="#" id="showRegister">Register</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Create an Account</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="regName">Full Name</label>
+                    <input type="text" id="regName" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="regEmail">Email</label>
+                    <input type="email" id="regEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="regPassword">Password</label>
+                    <input type="password" id="regPassword" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="regConfirmPassword">Confirm Password</label>
+                    <input type="password" id="regConfirmPassword" name="confirmPassword" required>
+                </div>
+                <button type="submit" class="form-submit">Register</button>
+                <div class="form-footer">
+                    Already have an account? <a href="#" id="showLogin">Login</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Consistent Navigation Bar -->
+    <nav>
+        <div class="logo-container">
+            <img src="/static/images/logo.png" alt="Capture Moments Logo" class="logo">
+            <a href="/" class="nav-logo-text">Capture Moments</a>
+        </div>
+        
+        <div class="nav-links">
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            
+            <div class="dropdown">
+                <a href="#"><i class="fas fa-user-circle"></i> My Profile</a>
+                <div class="dropdown-content">
+                    <a href="/my-bookings"><i class="fas fa-calendar-check"></i> My Bookings</a>
+                    <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="content">
+        <h1>Capture Moments</h1>
+        <p>Your go-to platform for booking Photographers!</p>
+        <a href="/book" class="button">Book a Photographer</a>
+        <a href="/show-photographers" class="button">View Photographers</a>
+
+        <div class="styles-section">
+        <h2>Photography Styles</h2>
+        <div class="style-grid">
+            <!-- Wedding Photography -->
+            <div class="style-card">
+                <img src="/static/images/wedding.jpg" alt="Wedding Photography" onclick="window.location.href='/wedding'">
+                <h3>Wedding Photography</h3>
+            </div>
+            <!-- Fashion Photography -->
+            <div class="style-card">
+                <img src="/static/images/fashion.jpg" alt="Fashion Photography" onclick="window.location.href='/fashion'">
+                <h3>Fashion Photography</h3>
+            </div>
+            <!-- Nature Photography -->
+            <div class="style-card">
+                <img src="/static/images/nature.jpg" alt="Nature Photography" onclick="window.location.href='/nature'">
+                <h3>Nature Photography</h3>
+            </div>
+            <!-- Event Photography -->
+            <div class="style-card">
+                <img src="/static/images/event.jpg" alt="Event Photography" onclick="window.location.href='/events'">
+                <h3>Event Photography</h3>
+            </div>
+            <!-- Portrait Photography -->
+            <div class="style-card">
+                <img src="/static/images/potrait.jpg" alt="Portrait Photography" onclick="window.location.href='/portrait'">
+                <h3>Portrait Photography</h3>
+            </div>
+            <!-- Product Photography -->
+            <div class="style-card">
+                <img src="/static/images/product.jpg" alt="Product Photography" onclick="window.location.href='/product'">
+                <h3>Product Photography</h3>
+            </div>
+            <!-- Food Photography -->
+            <div class="style-card">
+                <img src="/static/images/food.jpg" alt="Food Photography" onclick="window.location.href='/food'">
+                <h3>Food Photography</h3>
+            </div>
+            <!-- Architecture Photography -->
+            <div class="style-card">
+                <img src="/static/images/architecture.jpg" alt="Architecture Photography" onclick="window.location.href='/architecture'">
+                <h3>Architecture Photography</h3>
+            </div>
+            <!-- Sports Photography -->
+            <div class="style-card">
+                <img src="/static/images/sports.jpg" alt="Sports Photography" onclick="window.location.href='/sports'">
+                <h3>Sports Photography</h3>
+            </div>
+            <!-- Wildlife Photography -->
+            <div class="style-card">
+                <img src="/static/images/wildlife.jpg" alt="Wildlife Photography" onclick="window.location.href='/wildlife'">
+                <h3>Wildlife Photography</h3>
+            </div>
+            <!-- Newborn Photography -->
+            <div class="style-card">
+                <img src="/static/images/newborn.jpg" alt="Newborn Photography" onclick="window.location.href='/newborn'">
+                <h3>Newborn Photography</h3>
+            </div>
+            <!-- Pet Photography -->
+            <div class="style-card">
+                <img src="/static/images/pet.jpg" alt="Pet Photography" onclick="window.location.href='/pet'">
+                <h3>Pet Photography</h3>
+            </div>
+            <!-- Graduation Photography -->
+            <div class="style-card">
+                <img src="/static/images/graduation.jpg" alt="Graduation Photography" onclick="window.location.href='/graduation'">
+                <h3>Graduation Photography</h3>
+            </div>
+        </div>
+    </div>
+        <!-- Testimonials Section -->
+        <div class="testimonials-section">
+            <h2>What Our Clients Say</h2>
+            <div class="testimonial-slider">
+                <div class="testimonial-slide active">
+                    <div class="testimonial-quote">
+                        The photographer captured our wedding perfectly! Every moment was beautifully documented and we couldn't be happier with the results.
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Sarah Johnson" class="author-image">
+                        <div class="author-info">
+                            <h4>Sarah Johnson</h4>
+                            <p>Wedding Client</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-slide">
+                    <div class="testimonial-quote">
+                        Professional, creative, and easy to work with. Our product photos have never looked better and our sales have increased significantly.
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Chen" class="author-image">
+                        <div class="author-info">
+                            <h4>Michael Chen</h4>
+                            <p>Business Owner</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-slide">
+                    <div class="testimonial-quote">
+                        I've used Capture Moments for three different events now and each time the photographers have exceeded my expectations. Highly recommend!
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Emily Rodriguez" class="author-image">
+                        <div class="author-info">
+                            <h4>Emily Rodriguez</h4>
+                            <p>Event Planner</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-dots">
+                <span class="dot active" data-slide="0"></span>
+                <span class="dot" data-slide="1"></span>
+                <span class="dot" data-slide="2"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>About Us</h3>
+                <p>Capture Moments connects you with professional photographers for all occasions. Our mission is to preserve your precious memories with stunning photography.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about">About Us</a></li>
+                    <li><a href="/services">Services</a></li>
+                    <li><a href="/photographers">Photographers</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                    <li><a href="/privacy">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact Info</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Photography St, Image City</p>
+                <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                <p><i class="fas fa-envelope"></i> info@capturemoments.com</p>
+                <p><i class="fas fa-clock"></i> Mon-Fri: 9AM - 6PM</p>
+            </div>
+            <div class="footer-column">
+                <h3>Newsletter</h3>
+                <p>Subscribe to our newsletter for photography tips, special offers, and updates.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your Email Address" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Capture Moments. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Authentication state management
+        let isAuthenticated = false;
+
+        // Show login modal when page loads if not authenticated
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is authenticated (in a real app, this would check cookies/localStorage)
+            const authToken = localStorage.getItem('authToken');
+            if (!authToken) {
+                document.getElementById('loginModal').style.display = 'block';
+            } else {
+                isAuthenticated = true;
+            }
+
+            // Initialize testimonial slider
+            initTestimonialSlider();
+        });
+
+        // Testimonial Slider
+        function initTestimonialSlider() {
+            const slides = document.querySelectorAll('.testimonial-slide');
+            const dots = document.querySelectorAll('.dot');
+            let currentSlide = 0;
+
+            function showSlide(index) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                dots.forEach(dot => dot.classList.remove('active'));
+                
+                slides[index].classList.add('active');
+                dots[index].classList.add('active');
+                currentSlide = index;
+            }
+
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }
+
+            // Dot click handlers
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => showSlide(index));
+            });
+
+            // Auto-rotate slides every 5 seconds
+            setInterval(nextSlide, 5000);
+        }
+
+        // Modal functionality
+        const loginModal = document.getElementById('loginModal');
+        const registerModal = document.getElementById('registerModal');
+        const showRegister = document.getElementById('showRegister');
+        const showLogin = document.getElementById('showLogin');
+        const closeButtons = document.querySelectorAll('.close');
+
+        showRegister.addEventListener('click', function(e) {
+            e.preventDefault();
+            loginModal.style.display = 'none';
+            registerModal.style.display = 'block';
+        });
+
+        showLogin.addEventListener('click', function(e) {
+            e.preventDefault();
+            registerModal.style.display = 'none';
+            loginModal.style.display = 'block';
+        });
+
+        closeButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                loginModal.style.display = 'none';
+                registerModal.style.display = 'none';
+            });
+        });
+
+        window.addEventListener('click', function(event) {
+            if (event.target === loginModal) {
+                loginModal.style.display = 'none';
+            }
+            if (event.target === registerModal) {
+                registerModal.style.display = 'none';
+            }
+        });
+
+        // Form submission (simulated authentication)
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Simulate successful login
+            localStorage.setItem('authToken', 'simulated-token');
+            isAuthenticated = true;
+            loginModal.style.display = 'none';
+            alert('Login successful!');
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const password = document.getElementById('regPassword').value;
+            const confirmPassword = document.getElementById('regConfirmPassword').value;
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+            
+            // Simulate successful registration
+            localStorage.setItem('authToken', 'simulated-token');
+            isAuthenticated = true;
+            registerModal.style.display = 'none';
+            alert('Registration successful! You are now logged in.');
+        });
+
+        // Logout functionality
+        document.getElementById('logoutBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            localStorage.removeItem('authToken');
+            isAuthenticated = false;
+            alert('You have been logged out. You will need to login again to use this page.');
+            window.location.href = '/'; // Refresh the page
+        });
+
+        // Simple form submission handler for newsletter
+        document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input').value;
+            alert(`Thank you for subscribing with ${email}! You'll hear from us soon.`);
+            this.querySelector('input').value = '';
+        });
+
+        // Protect routes (simulated)
+        document.querySelectorAll('a[href^="/"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (!isAuthenticated && !this.href.endsWith('#') && !this.id) {
+                    e.preventDefault();
+                    loginModal.style.display = 'block';
+                    alert('Please login to access this page');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

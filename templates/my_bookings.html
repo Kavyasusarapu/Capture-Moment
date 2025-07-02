@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookings - Capture Moments</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Navigation Bar */
+        nav {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: rgba(5, 1, 1, 0.94);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.96);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            height: 40px;
+            margin-right: 15px;
+            object-fit: cover;
+            transform: scale(0.8);
+        }
+
+        .nav-logo-text {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 1.1em;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: yellow;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-header h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #222;
+        }
+
+        /* Bookings Table */
+        .bookings-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .bookings-table th, 
+        .bookings-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .bookings-table th {
+            background-color: #ffcc00;
+            color: #222;
+            font-weight: bold;
+        }
+
+        .bookings-table tr:hover {
+            background-color: rgba(255, 204, 0, 0.1);
+        }
+
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .status.confirmed {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .status.pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .status.cancelled {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .action-btn {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s;
+        }
+
+        .action-btn.cancel {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .action-btn.cancel:hover {
+            background-color: #f1b0b7;
+        }
+
+        .action-btn.view {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .action-btn.view:hover {
+            background-color: #bee5eb;
+        }
+
+        .no-bookings {
+            text-align: center;
+            padding: 50px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .no-bookings i {
+            font-size: 3em;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        .no-bookings p {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .book-now-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #ffcc00;
+            color: #222;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .book-now-btn:hover {
+            background-color: #e6b800;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #222;
+            color: white;
+            padding: 60px 0 20px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            padding: 0 20px;
+        }
+
+        .footer-column {
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #ffcc00;
+        }
+
+        .footer-column p {
+            margin-bottom: 15px;
+            color: #bbb;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: #333;
+            color: white;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: #ffcc00;
+            color: #222;
+            transform: translateY(-3px);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #ffcc00;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid #444;
+            color: #bbb;
+            font-size: 0.9em;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                padding: 15px;
+            }
+
+            .logo-container {
+                margin-bottom: 15px;
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: space-around;
+                flex-wrap: wrap;
+            }
+
+            .nav-links a {
+                margin: 5px 10px;
+            }
+
+            .bookings-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+  
+   
+    <!-- Main Content -->
+    <div class="container">
+        <div class="page-header">
+            <h1>My Bookings</h1>
+            <p>View and manage your upcoming photography sessions</p>
+        </div>
+
+        <div id="bookings-container">
+            <!-- Bookings will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>About Us</h3>
+                <p>Capture Moments connects you with professional photographers for all occasions. Our mission is to preserve your precious memories with stunning photography.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about">About Us</a></li>
+                    <li><a href="/services">Services</a></li>
+                    <li><a href="/photographers">Photographers</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                    <li><a href="/privacy">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact Info</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Photography St, Image City</p>
+                <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                <p><i class="fas fa-envelope"></i> info@capturemoments.com</p>
+                <p><i class="fas fa-clock"></i> Mon-Fri: 9AM - 6PM</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Capture Moments. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get bookings from localStorage
+            const bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+            const container = document.getElementById('bookings-container');
+
+            if (bookings.length === 0) {
+                // Show message if no bookings
+                container.innerHTML = `
+                    <div class="no-bookings">
+                        <i class="far fa-calendar-times"></i>
+                        <p>You don't have any bookings yet.</p>
+                        <a href="/book" class="book-now-btn">Book a Session Now</a>
+                    </div>
+                `;
+            } else {
+                // Create bookings table
+                let html = `
+                    <table class="bookings-table">
+                        <thead>
+                            <tr>
+                                <th>Booking ID</th>
+                                <th>Service</th>
+                                <th>Photographer</th>
+                                <th>Date</th>
+                                <th>Location</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+
+                // Sort bookings by date (newest first)
+                bookings.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+                // Add each booking to the table
+                bookings.forEach(booking => {
+                    const bookingDate = new Date(booking.date);
+                    const formattedDate = bookingDate.toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric'
+                    });
+
+                    html += `
+                        <tr>
+                            <td>#${booking.id.toString().slice(-6)}</td>
+                            <td>${booking.service.charAt(0).toUpperCase() + booking.service.slice(1)}</td>
+                            <td>${getPhotographerName(booking.photographer)}</td>
+                            <td>${formattedDate}</td>
+                            <td>${booking.location}</td>
+                            <td><span class="status ${booking.status.toLowerCase()}">${booking.status}</span></td>
+                            <td>
+                                <button class="action-btn view" onclick="viewBooking(${booking.id})">Details</button>
+                                <button class="action-btn cancel" onclick="cancelBooking(${booking.id})">Cancel</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                html += `
+                        </tbody>
+                    </table>
+                `;
+
+                container.innerHTML = html;
+            }
+        });
+
+        // Helper function to get photographer name from ID
+        function getPhotographerName(photographerId) {
+            const photographers = {
+                'sarah-johnson': 'Sarah Johnson',
+                'michael-chen': 'Michael Chen',
+                'emma-rodriguez': 'Emma Rodriguez',
+                'david-wilson': 'David Wilson',
+                'jessica-lee': 'Jessica Lee',
+                'robert-kim': 'Robert Kim',
+                'sophia-martinez': 'Sophia Martinez',
+                'james-peterson': 'James Peterson',
+                'olivia-brown': 'Olivia Brown',
+                'daniel-wilson': 'Daniel Wilson'
+            };
+            return photographers[photographerId] || photographerId;
+        }
+
+        // View booking details
+        function viewBooking(bookingId) {
+            const bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+            const booking = bookings.find(b => b.id === bookingId);
+            
+            if (booking) {
+                alert(`Booking Details:\n\n` +
+                      `ID: #${booking.id.toString().slice(-6)}\n` +
+                      `Service: ${booking.service.charAt(0).toUpperCase() + booking.service.slice(1)}\n` +
+                      `Photographer: ${getPhotographerName(booking.photographer)}\n` +
+                      `Date: ${new Date(booking.date).toLocaleDateString()}\n` +
+                      `Location: ${booking.location}\n` +
+                      `Payment Method: ${booking.paymentMethod}\n` +
+                      `Status: ${booking.status}\n` +
+                      `Special Requests: ${booking.specialRequests || 'None'}`);
+            }
+        }
+
+        // Cancel booking
+        function cancelBooking(bookingId) {
+            if (confirm('Are you sure you want to cancel this booking?')) {
+                let bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+                bookings = bookings.map(booking => {
+                    if (booking.id === bookingId) {
+                        return { ...booking, status: 'Cancelled' };
+                    }
+                    return booking;
+                });
+                
+                localStorage.setItem('bookings', JSON.stringify(bookings));
+                alert('Booking has been cancelled.');
+                location.reload(); // Refresh to show updated status
+            }
+        }
+
+        // Logout functionality
+        document.getElementById('logoutBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            localStorage.removeItem('authToken');
+            alert('You have been logged out. Redirecting to home page...');
+            window.location.href = '/';
+        });
+    </script>
+</body>
+</html>

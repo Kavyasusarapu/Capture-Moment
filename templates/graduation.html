@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graduation Photography - Capture Moments</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Navigation Bar - Consistent with home.html */
+        nav {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: rgba(0, 0, 0, 0.7);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            height: 40px;
+            margin-right: 15px;
+            object-fit: cover;
+            transform: scale(0.8);
+        }
+
+        .nav-logo-text {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 1.1em;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: yellow;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.9);
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            z-index: 1;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .dropdown-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            margin: 0;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: rgba(255, 255, 0, 0.2);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Service Header */
+        .service-header {
+            background:  
+                        url(/static/images/graduation_logo.jpg) no-repeat center center;
+            background-size: cover;
+            color: white;
+            text-align: center;
+            padding: 120px 20px;
+            margin-bottom: 50px;
+        }
+
+        .service-header h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+        }
+
+        .service-header p {
+            font-size: 1.3em;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Service Content */
+        .service-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .service-section {
+            margin-bottom: 60px;
+        }
+
+        .service-section h2 {
+            font-size: 2.2em;
+            margin-bottom: 30px;
+            color: #222;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .service-section h2::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 80px;
+            height: 3px;
+            background-color: #ffcc00;
+        }
+
+        .service-description {
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Pricing Section */
+        .pricing-table {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .pricing-card {
+            flex: 1;
+            min-width: 250px;
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .pricing-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #222;
+        }
+
+        .price {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #ffcc00;
+            margin-bottom: 20px;
+        }
+
+        .price span {
+            font-size: 0.6em;
+            color: #777;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .pricing-features li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .pricing-features li::before {
+            content: "\f00c";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: #ffcc00;
+        }
+
+        .book-button {
+            display: inline-block;
+            background-color: #ffcc00;
+            color: #222;
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .book-button:hover {
+            background-color: #e6b800;
+        }
+
+        /* Testimonials */
+        .graduation-testimonials {
+            background-color: #f5f5f5;
+            padding: 60px 20px;
+            margin-top: 60px;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .testimonial-text::before {
+            content: '"';
+            font-size: 3em;
+            color: #ffcc00;
+            position: absolute;
+            left: -15px;
+            top: -15px;
+            opacity: 0.3;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+
+        .author-info h4 {
+            margin-bottom: 5px;
+        }
+
+        .author-info p {
+            color: #777;
+            font-size: 0.9em;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: url('/static/images/graduation-cta.jpg') no-repeat center center;
+            background-size: cover;
+            color: rgb(21, 20, 20);
+            text-align: center;
+            padding: 80px 20px;
+            margin-top: 60px;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            font-size: 1.1em;
+        }
+
+        /* Footer (same as wedding.html) */
+        footer {
+            background-color: #222;
+            color: #fff;
+            padding: 60px 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            gap: 40px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+            color: #ffcc00;
+        }
+
+        .footer-column h3::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #ffcc00;
+        }
+
+        .footer-column p {
+            margin-bottom: 15px;
+            font-size: 0.95em;
+            line-height: 1.6;
+            color: #ddd;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.95em;
+        }
+
+        .footer-links a:hover {
+            color: #ffcc00;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            color: #fff;
+            background-color: #333;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: #ffcc00;
+            color: #222;
+            transform: translateY(-3px);
+        }
+
+        .newsletter-form {
+            margin-top: 20px;
+        }
+
+        .newsletter-form input {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            background-color: #333;
+            color: #fff;
+            font-size: 0.9em;
+        }
+
+        .newsletter-form input::placeholder {
+            color: #bbb;
+        }
+
+        .newsletter-form button {
+            background-color: #ffcc00;
+            color: #222;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+            font-size: 0.9em;
+        }
+
+        .newsletter-form button:hover {
+            background-color: #ffd633;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid #444;
+            font-size: 0.85em;
+            color: #aaa;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                padding: 15px;
+            }
+
+            .logo-container {
+                margin-bottom: 15px;
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: space-around;
+                flex-wrap: wrap;
+            }
+
+            .nav-links a {
+                margin: 5px 10px;
+            }
+
+            .service-header h1 {
+                font-size: 2.5em;
+            }
+
+            .service-header p {
+                font-size: 1.1em;
+            }
+
+            .pricing-table {
+                flex-direction: column;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+  
+    <!-- Service Header -->
+    <div class="service-header">
+        <h1>Graduation Photography</h1>
+        <p>Celebrate your academic achievements with professional portraits that capture this milestone moment</p>
+    </div>
+
+    <!-- Service Content -->
+    <div class="service-container">
+        <section class="service-section">
+            <h2>Our Graduation Photography Services</h2>
+            <p class="service-description">
+                Our graduation photography service is designed to capture the pride, joy, and accomplishment of your academic journey. 
+                Whether it's high school, college, or university graduation, we create timeless images that commemorate this significant achievement. 
+                From classic cap-and-gown portraits to creative campus shots, we'll help you preserve these memories forever.
+            </p>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="/static/images/graduation1.jpg" alt="Graduation Portrait">
+                </div>
+                <div class="gallery-item">
+                    <img src="/static/images/graduation2.jpg" alt="Cap Toss">
+                </div>
+                <div class="gallery-item">
+                    <img src="/static/images/graduation3.jpg" alt="Diploma Moment">
+                </div>
+                <div class="gallery-item">
+                    <img src="/static/images/graduation4.jpg" alt="Campus Background">
+                </div>
+                <div class="gallery-item">
+                    <img src="/static/images/graduation5.jpg" alt="Group Photo">
+                </div>
+                <div class="gallery-item">
+                    <img src="/static/images/graduation6.jpg" alt="Celebration">
+                </div>
+            </div>
+        </section>
+
+        <section class="service-section">
+            <h2>Pricing Packages</h2>
+            <p class="service-description">
+                We offer flexible graduation photography packages to suit different needs and budgets. 
+                All packages include high-resolution edited images, online gallery, and printing rights.
+            </p>
+            
+            <div class="pricing-table">
+                <div class="pricing-card">
+                    <h3>Basic</h3>
+                    <div class="price">$199 <span>/ session</span></div>
+                    <ul class="pricing-features">
+                        <li>30 minute session</li>
+                        <li>1 location on campus</li>
+                        <li>20+ edited photos</li>
+                        <li>Online gallery</li>
+                        <li>Digital download</li>
+                    </ul>
+                    <a href="/book?service=graduation&package=basic" class="book-button">Book Now</a>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3>Standard</h3>
+                    <div class="price">$299 <span>/ session</span></div>
+                    <ul class="pricing-features">
+                        <li>1 hour session</li>
+                        <li>2 locations on campus</li>
+                        <li>40+ edited photos</li>
+                        <li>Online gallery</li>
+                        <li>Digital download</li>
+                        <li>5 printed 5×7 photos</li>
+                    </ul>
+                    <a href="/book?service=graduation&package=standard" class="book-button">Book Now</a>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3>Premium</h3>
+                    <div class="price">$499 <span>/ session</span></div>
+                    <ul class="pricing-features">
+                        <li>2 hour session</li>
+                        <li>Multiple campus locations</li>
+                        <li>80+ edited photos</li>
+                        <li>Online gallery</li>
+                        <li>Digital download</li>
+                        <li>10 printed 5×7 photos</li>
+                        <li>1 large 11×14 print</li>
+                        <li>Family group photos included</li>
+                    </ul>
+                    <a href="/book?service=graduation&package=premium" class="book-button">Book Now</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="service-section">
+            <h2>Our Approach</h2>
+            <p class="service-description">
+                We believe graduation photography should capture both the formality of the occasion and the personality of the graduate. 
+                Our approach combines:
+            </p>
+            
+            <div class="approach-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px; margin-top: 30px;">
+                <div class="approach-item" style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                    <h3 style="color: #ffcc00; margin-bottom: 15px; font-size: 1.3em;"><i class="fas fa-user-graduate" style="margin-right: 10px;"></i> Traditional</h3>
+                    <p>Classic cap-and-gown portraits with diploma</p>
+                </div>
+                <div class="approach-item" style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                    <h3 style="color: #ffcc00; margin-bottom: 15px; font-size: 1.3em;"><i class="fas fa-laugh" style="margin-right: 10px;"></i> Candid</h3>
+                    <p>Natural moments of celebration and joy</p>
+                </div>
+                <div class="approach-item" style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                    <h3 style="color: #ffcc00; margin-bottom: 15px; font-size: 1.3em;"><i class="fas fa-landmark" style="margin-right: 10px;"></i> Campus</h3>
+                    <p>Iconic locations that define your school experience</p>
+                </div>
+                <div class="approach-item" style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                    <h3 style="color: #ffcc00; margin-bottom: 15px; font-size: 1.3em;"><i class="fas fa-users" style="margin-right: 10px;"></i> Group</h3>
+                    <p>Photos with friends, family, and classmates</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Testimonials -->
+    <section class="graduation-testimonials">
+        <div class="service-container">
+            <h2 style="text-align: center; margin-bottom: 50px; font-size: 2.2em;">What Graduates Say About Us</h2>
+            
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "My graduation photos turned out absolutely amazing! The photographer captured my personality perfectly and made me feel so comfortable during the session."
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah M.">
+                        <div class="author-info">
+                            <h4>Sarah M.</h4>
+                            <p>University of Michigan, 2023</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "The photos are stunning and really captured the emotion of graduation day. My family will treasure these forever."
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="James T.">
+                        <div class="author-info">
+                            <h4>James T.</h4>
+                            <p>Harvard University, 2023</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "Worth every penny! The photographer knew all the best spots on campus and made the whole experience fun and memorable."
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Emily R.">
+                        <div class="author-info">
+                            <h4>Emily R.</h4>
+                            <p>Stanford University, 2023</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>Ready to Capture Your Graduation Moment?</h2>
+        <p>Contact us today to schedule your graduation photo session and preserve this special achievement.</p>
+        <a href="/contact" class="book-button" style="background: white; color: #222;">Contact Us</a>
+    </section>
+
+    <!-- Footer (same as wedding.html) -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>About Us</h3>
+                <p>Capture Moments connects you with professional photographers for all occasions. Our mission is to preserve your precious memories with stunning photography.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about">About Us</a></li>
+                    <li><a href="/services">Services</a></li>
+                    <li><a href="/photographers">Photographers</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                    <li><a href="/privacy">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact Info</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Photography St, Image City</p>
+                <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                <p><i class="fas fa-envelope"></i> info@capturemoments.com</p>
+                <p><i class="fas fa-clock"></i> Mon-Fri: 9AM - 6PM</p>
+            </div>
+            <div class="footer-column">
+                <h3>Newsletter</h3>
+                <p>Subscribe to our newsletter for photography tips, special offers, and updates.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your Email Address" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Capture Moments. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple logout functionality
+        document.getElementById('logoutBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            localStorage.removeItem('authToken');
+            alert('You have been logged out. Redirecting to home page...');
+            window.location.href = '/';
+        });
+
+        // Simple form submission handler for newsletter
+        document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input').value;
+            alert(`Thank you for subscribing with ${email}! You'll hear from us soon.`);
+            this.querySelector('input').value = '';
+        });
+    </script>
+</body>
+</html>
